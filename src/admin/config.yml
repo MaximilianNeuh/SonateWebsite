@@ -1,0 +1,54 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "src/assets/uploads"
+public_folder: "/assets/uploads"
+
+locale: de
+
+collections:
+  # ── VERANSTALTUNGEN ──────────────────────────────
+  - name: "veranstaltungen"
+    label: "Veranstaltungen"
+    folder: "src/veranstaltungen"
+    create: true
+    slug: "{{datum}}-{{slug}}"
+    fields:
+      - { label: "Titel", name: "title", widget: "string" }
+      - { label: "Datum", name: "datum", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
+      - { label: "Uhrzeit", name: "uhrzeit", widget: "string", hint: "z.B. 19:00" }
+      - label: "Kategorie"
+        name: "kategorie"
+        widget: "select"
+        options: ["Konzert", "Workshop", "Vortrag", "Benefiz", "Sonstiges"]
+      - { label: "Ort", name: "ort", widget: "string", required: false }
+      - { label: "Eintritt", name: "eintritt", widget: "string", required: false, hint: "z.B. 8 € / 5 € erm. oder Eintritt frei" }
+      - { label: "Beschreibung", name: "beschreibung", widget: "text" }
+      - { label: "Bild", name: "bild", widget: "image", required: false }
+
+  # ── SEITENINHALT ─────────────────────────────────
+  - name: "einstellungen"
+    label: "Seiteninhalt"
+    files:
+      - label: "Allgemein & Hero"
+        name: "site"
+        file: "src/_data/site.json"
+        fields:
+          - { label: "Vereinsname", name: "site_titel", widget: "string" }
+          - { label: "Ort", name: "site_untertitel", widget: "string" }
+          - { label: "Hero – Eyebrow-Text", name: "hero_eyebrow", widget: "string" }
+          - { label: "Hero – Haupttitel", name: "hero_titel", widget: "string", hint: "HTML erlaubt, z.B. Kunst,<br>Musik & <em>Begegnung</em>" }
+          - { label: "Hero – Untertext", name: "hero_text", widget: "text" }
+          - label: "Über uns – Einleitungssatz"
+            name: "ueber_uns_lead"
+            widget: "string"
+          - label: "Über uns – Fließtext"
+            name: "ueber_uns_text"
+            widget: "text"
+            hint: "Absätze mit einer Leerzeile trennen"
+          - label: "Mitmachen – Text"
+            name: "mitmachen_text"
+            widget: "text"
+          - { label: "Kontakt-E-Mail", name: "kontakt_email", widget: "string" }
+          - { label: "Formspree-ID", name: "formspree_id", widget: "string", hint: "Den Teil nach formspree.io/f/ eintragen" }

@@ -1,0 +1,12 @@
+{
+  "name": "sonate-kulturforum",
+  "version": "1.0.0",
+  "description": "Sonate KulturForum e.V. Website",
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy"
+  },
+  "dependencies": {
+    "@11ty/eleventy": "^2.0.1"
+  }
+}

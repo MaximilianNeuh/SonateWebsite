@@ -1,0 +1,197 @@
+---
+layout: base.njk
+---
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">
+    <img src="/assets/logo.svg" alt="{{ site.site_titel }}" style="height:52px; width:auto; display:block;" />
+  </a>
+  <ul class="nav-links">
+    <li><a href="#ueber-uns">Über uns</a></li>
+    <li><a href="#veranstaltungen">Veranstaltungen</a></li>
+    <li><a href="#mitmachen">Mitmachen</a></li>
+    <li><a href="#mitmachen">Kontakt</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-text" aria-hidden="true">Sonate</div>
+  <p class="hero-eyebrow">{{ site.hero_eyebrow }}</p>
+  <h1 class="hero-title">{{ site.hero_titel | safe }}</h1>
+  <p class="hero-sub">{{ site.hero_text }}</p>
+  <div class="hero-actions">
+    <a href="#veranstaltungen" class="btn-primary">Veranstaltungen</a>
+    <a href="#mitmachen" class="btn-ghost">Mitglied werden</a>
+  </div>
+  <span class="hero-scroll" aria-hidden="true">Entdecken</span>
+</section>
+
+<!-- ÜBER UNS -->
+<section id="ueber-uns">
+  <p class="section-eyebrow">Über uns</p>
+  <h2 class="section-title">Ein Ort für <em>Kultur</em><br>und Gemeinschaft</h2>
+  <div class="divider"></div>
+  <div class="about-grid">
+    <div>
+      <p class="about-lead">{{ site.ueber_uns_lead }}</p>
+      <div class="pillars">
+        <div class="pillar">
+          <p class="pillar-label">Musik</p>
+          <p class="pillar-text">Konzerte, Workshops und musikalische Bildung für alle Altersgruppen.</p>
+        </div>
+        <div class="pillar">
+          <p class="pillar-label">Bildung</p>
+          <p class="pillar-text">Kulturelle Bildungsarbeit mit Kindern, Jugendlichen und Erwachsenen.</p>
+        </div>
+        <div class="pillar">
+          <p class="pillar-label">Vielfalt</p>
+          <p class="pillar-text">Interkulturelle Projekte, die Toleranz und Verständigung fördern.</p>
+        </div>
+        <div class="pillar">
+          <p class="pillar-label">Community</p>
+          <p class="pillar-text">Vernetzung von Künstler·innen und Kulturschaffenden in der Region.</p>
+        </div>
+      </div>
+    </div>
+    <div class="about-body">
+      {% set paras = site.ueber_uns_text.split("\n\n") %}
+      {% for para in paras %}
+        <p>{{ para }}</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- VERANSTALTUNGEN -->
+<section id="veranstaltungen">
+  <div class="events-header">
+    <div>
+      <p class="section-eyebrow">Programm</p>
+      <h2 class="section-title">Kommende <em>Veranstaltungen</em></h2>
+    </div>
+  </div>
+  <div class="events-grid">
+    {% set upcoming = collections.veranstaltungen | selectattr("data.datum") | list %}
+    {% for event in upcoming %}
+      <div class="event-card{% if loop.first %} featured{% endif %}">
+        <p class="event-date">{{ event.data.datum | datumDE }} &nbsp;·&nbsp; {{ event.data.uhrzeit }} Uhr</p>
+        <h3 class="event-title">{{ event.data.title }}</h3>
+        <p class="event-desc">{{ event.data.beschreibung }}</p>
+        <div class="event-meta">
+          <span class="event-tag">{{ event.data.kategorie }}</span>
+          {% if event.data.ort %}<span>{{ event.data.ort }}</span>{% endif %}
+          {% if event.data.eintritt %}<span>{{ event.data.eintritt }}</span>{% endif %}
+        </div>
+      </div>
+    {% else %}
+      <p style="color:var(--muted); font-size:0.9rem;">Aktuell keine Veranstaltungen geplant.</p>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- MITMACHEN -->
+<section id="mitmachen">
+  <p class="section-eyebrow" style="color: var(--gold);">Mitmachen</p>
+  <h2 class="section-title">Werden Sie Teil<br>unserer <em>Gemeinschaft</em></h2>
+  <div class="divider"></div>
+  <div class="mitmachen-grid">
+    <div>
+      <p style="font-size:0.85rem; font-weight:300; color:rgba(245,240,232,0.55); margin-bottom:1.75rem; line-height:1.8;">
+        {{ site.mitmachen_text }}
+      </p>
+      <div class="membership-tiers">
+        <div class="tier">
+          <div>
+            <p class="tier-name">Fördermitglied</p>
+            <p class="tier-desc">Finanzielle Unterstützung, kein Stimmrecht</p>
+          </div>
+          <p class="tier-price">ab 5 € / Mo.</p>
+        </div>
+        <div class="tier">
+          <div>
+            <p class="tier-name">Ordentliches Mitglied</p>
+            <p class="tier-desc">Vollmitgliedschaft mit Stimmrecht</p>
+          </div>
+          <p class="tier-price">10 € / Mo.</p>
+        </div>
+        <div class="tier">
+          <div>
+            <p class="tier-name">Schüler·in / Student·in</p>
+            <p class="tier-desc">Ermäßigte Vollmitgliedschaft</p>
+          </div>
+          <p class="tier-price">5 € / Mo.</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <p style="font-size:0.7rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:rgba(245,240,232,0.35); margin-bottom:1.25rem;">Schreiben Sie uns</p>
+      <form class="contact-form" id="contact-form" name="kontakt" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="kontakt" />
+        <p style="display:none"><label>Nicht ausfüllen: <input name="bot-field" /></label></p>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Ihr Name" required />
+        </div>
+        <div class="form-group">
+          <label for="email">E-Mail</label>
+          <input type="email" id="email" name="email" placeholder="ihre@email.de" required />
+        </div>
+        <div class="form-group">
+          <label for="message">Nachricht</label>
+          <textarea id="message" name="message" rows="4" placeholder="Wie können wir helfen?" required></textarea>
+        </div>
+        <button type="submit" id="submit-btn" class="btn-primary" style="align-self:flex-start; cursor:pointer; border:none;">
+          Absenden
+        </button>
+        <p id="form-success" style="display:none; font-size:0.85rem; color:var(--gold-lt); margin-top:0.5rem;">
+          ✓ Vielen Dank – wir melden uns bald bei Ihnen.
+        </p>
+        <p id="form-error" style="display:none; font-size:0.85rem; color:#e07070; margin-top:0.5rem;">
+          Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.
+        </p>
+      </form>
+      <script>
+        const form = document.getElementById('contact-form');
+        const btn  = document.getElementById('submit-btn');
+        const ok   = document.getElementById('form-success');
+        const err  = document.getElementById('form-error');
+        form.addEventListener('submit', async function(e) {
+          e.preventDefault();
+          btn.textContent = 'Wird gesendet…';
+          btn.disabled = true;
+          ok.style.display = 'none';
+          err.style.display = 'none';
+          try {
+            const res = await fetch('/', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+              body: new URLSearchParams(new FormData(form)).toString()
+            });
+            if (res.ok) {
+              form.reset();
+              ok.style.display = 'block';
+              btn.textContent = 'Absenden';
+              btn.disabled = false;
+            } else { throw new Error(); }
+          } catch {
+            err.style.display = 'block';
+            btn.textContent = 'Absenden';
+            btn.disabled = false;
+          }
+        });
+      </script>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <img src="/assets/logo.svg" alt="{{ site.site_titel }}" style="height:64px; width:auto; opacity:0.75;" />
+  <div class="footer-meta">
+    <p>Halle (Saale) &nbsp;·&nbsp; <a href="mailto:{{ site.kontakt_email }}">{{ site.kontakt_email }}</a></p>
+    <p style="margin-top:0.3rem;"><a href="#">Impressum</a> &nbsp;·&nbsp; <a href="#">Datenschutz</a></p>
+  </div>
+</footer>
