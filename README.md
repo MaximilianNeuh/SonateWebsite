@@ -4,7 +4,7 @@ Gebaut mit [Eleventy](https://www.11ty.dev/) und [Decap CMS](https://decapcms.or
 
 ---
 
-## Einrichtung (einmalig, ~15 Minuten)
+## Einrichtung (einmalig, ~15 Minuten) 
 
 ### 1. GitHub Repository anlegen
 1. Geh auf [github.com](https://github.com) → „New repository"
