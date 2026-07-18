@@ -1,10 +1,27 @@
 # Sonate KulturForum e.V. – Website
 
-Gebaut mit [Eleventy](https://www.11ty.dev/) und [Decap CMS](https://decapcms.org/).
+Gebaut mit [React](https://react.dev/) + [Vite](https://vitejs.dev/), Inhaltspflege über [Decap CMS](https://decapcms.org/).
 
 ---
 
-## Einrichtung (einmalig, ~15 Minuten) 
+## Lokale Entwicklung
+
+```bash
+npm install
+npm run dev
+# → http://localhost:8080
+```
+
+## Build
+
+```bash
+npm run build   # erzeugt dist/
+npm run preview # Vorschau des Production-Builds
+```
+
+---
+
+## Einrichtung (einmalig, ~15 Minuten)
 
 ### 1. GitHub Repository anlegen
 1. Geh auf [github.com](https://github.com) → „New repository"
@@ -14,7 +31,7 @@ Gebaut mit [Eleventy](https://www.11ty.dev/) und [Decap CMS](https://decapcms.or
 ### 2. Netlify verbinden
 1. [netlify.com](https://netlify.com) → „Add new site" → „Import from Git"
 2. GitHub-Repo auswählen
-3. Build-Einstellungen werden automatisch aus `netlify.toml` gelesen
+3. Build-Einstellungen werden automatisch aus `netlify.toml` gelesen (Build: `npm run build`, Publish: `dist`)
 4. „Deploy site" klicken → Seite ist live!
 
 ### 3. Decap CMS aktivieren (für das Admin-Interface)
@@ -39,26 +56,33 @@ Nach der Einrichtung: einfach `deineseite.de/admin` aufrufen und einloggen.
 - **Veranstaltungen** → neue Events anlegen, bearbeiten, löschen
 - **Seiteninhalt** → Texte auf der Startseite anpassen (Hero, Über uns, Mitmachen, Kontakt)
 
+CMS-Änderungen landen als Git-Commits direkt in `src/data/` und lösen einen neuen Netlify-Build aus.
+
 ---
-
-## Lokale Entwicklung
-
-```bash
-npm install
-npm start
-# → http://localhost:8080
-```
 
 ## Projektstruktur
 
 ```
+public/
+  admin/                    ← Decap CMS (config.yml, index.html)
+  assets/                   ← statische Assets (Logo, Uploads)
 src/
-  _data/site.json          ← Seitentexte (vom CMS bearbeitet)
-  _includes/base.njk       ← HTML-Layout mit CSS
-  veranstaltungen/         ← Eine .md-Datei pro Event
-  admin/
-    config.yml             ← CMS-Konfiguration
-    index.html             ← CMS-Interface
-  index.njk                ← Startseite
-netlify.toml               ← Build-Einstellungen
+  data/
+    site.json                ← Seitentexte (vom CMS bearbeitet)
+    events/*.json            ← eine Datei pro Veranstaltung
+  components/
+    layout/                  ← Nav, Footer
+    hero/                    ← Hero-Section
+    about/                   ← Über-uns-Section
+    events/                  ← Veranstaltungen-Section + Card
+    join/                    ← Mitmachen-Section, Mitgliedschaften, Kontaktformular
+  pages/
+    HomePage.jsx              ← Startseite (alle Sections)
+    ImpressumPage.jsx          ← /impressum
+  hooks/                     ← useEvents, useContactForm
+  utils/                     ← formatDate
+  styles/global.css           ← Reset, Farbvariablen, geteilte Utility-Klassen
+  App.jsx                    ← React-Router-Setup
+  main.jsx                   ← Einstiegspunkt
+netlify.toml                 ← Build- & Redirect-Einstellungen
 ```

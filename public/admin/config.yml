@@ -2,7 +2,7 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: "src/assets/uploads"
+media_folder: "public/assets/uploads"
 public_folder: "/assets/uploads"
 
 locale: de
@@ -11,7 +11,9 @@ collections:
   # ── VERANSTALTUNGEN ──────────────────────────────
   - name: "veranstaltungen"
     label: "Veranstaltungen"
-    folder: "src/veranstaltungen"
+    folder: "src/data/events"
+    extension: "json"
+    format: "json"
     create: true
     slug: "{{datum}}-{{slug}}"
     fields:
@@ -33,7 +35,7 @@ collections:
     files:
       - label: "Allgemein & Hero"
         name: "site"
-        file: "src/_data/site.json"
+        file: "src/data/site.json"
         fields:
           - { label: "Vereinsname", name: "site_titel", widget: "string" }
           - { label: "Ort", name: "site_untertitel", widget: "string" }
