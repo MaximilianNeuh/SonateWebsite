@@ -19,11 +19,12 @@ collections:
     fields:
       - { label: "Titel", name: "title", widget: "string" }
       - { label: "Datum", name: "datum", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
-      - { label: "Uhrzeit", name: "uhrzeit", widget: "string", hint: "z.B. 19:00" }
+      - { label: "Uhrzeit", name: "uhrzeit", widget: "string", required: false, hint: "z.B. 19:00 – leer lassen, wenn noch offen" }
+      - { label: "Datum-Anzeige (optional)", name: "datum_anzeige", widget: "string", required: false, hint: "Überschreibt die Datumszeile auf der Karte, z.B. 'August 2026 · Termin wird noch bekannt gegeben'. Leer lassen für das normale Datum." }
       - label: "Kategorie"
         name: "kategorie"
         widget: "select"
-        options: ["Konzert", "Workshop", "Vortrag", "Benefiz", "Sonstiges"]
+        options: ["Konzert", "Workshop", "Projekt", "Filmvorführung", "Vortrag", "Benefiz", "Sonstiges"]
       - { label: "Ort", name: "ort", widget: "string", required: false }
       - { label: "Eintritt", name: "eintritt", widget: "string", required: false, hint: "z.B. 8 € / 5 € erm. oder Eintritt frei" }
       - { label: "Beschreibung", name: "beschreibung", widget: "text" }
